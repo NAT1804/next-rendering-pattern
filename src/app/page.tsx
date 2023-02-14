@@ -66,15 +66,15 @@ export default function Home() {
         <NextLink href="/ssg" passHref legacyBehavior>
           <a className={styles.card} rel="noopener noreferrer">
             <h2 className={inter.className}>
-              SSR <span>-&gt;</span>
+              SSG <span>-&gt;</span>
             </h2>
-            <p className={inter.className}>Server Side Rendering</p>
+            <p className={inter.className}>Static Site Generation</p>
           </a>
         </NextLink>
         <NextLink href="/isr" passHref legacyBehavior>
           <a className={styles.card} rel="noopener noreferrer">
             <h2 className={inter.className}>
-              SSR <span>-&gt;</span>
+              ISR <span>-&gt;</span>
             </h2>
             <p className={inter.className}>Server Side Rendering</p>
           </a>
@@ -82,7 +82,7 @@ export default function Home() {
         <NextLink href="/isr-on-demand" passHref legacyBehavior>
           <a className={styles.card} rel="noopener noreferrer">
             <h2 className={inter.className}>
-              SSR <span>-&gt;</span>
+              ISR on demand <span>-&gt;</span>
             </h2>
             <p className={inter.className}>Server Side Rendering</p>
           </a>

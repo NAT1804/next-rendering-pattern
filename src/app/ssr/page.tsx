@@ -1,33 +1,21 @@
 // server side rendered
-
 import { API } from "@/config/api";
+import { use } from "react";
 
-export default function SSR({ data }: any) {
+async function getData() {
+  return await (await fetch(API, { cache: "no-store" })).json();
+}
+
+export default function SSR() {
+
+  const users = use<any>(getData());
+
   return (
     <>
-      {data.map((e: any) => (
+      {users.map((e: any) => (
         <h2 key={e.id}>{e.name}</h2>
       ))}
     </>
   );
 }
 
-export async function getServerSideProps() {
-  const res = await fetch(API);
-  const data = await res.json();
-
-  if (!data) {
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    }
-  }
-
-  return {
-    props: {
-      data, // will be passed to the page component as props
-    },
-  };
-}

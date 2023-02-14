@@ -1,25 +1,19 @@
-// client side rendered
-"use client"
+// Static site generation
 import { API } from "@/config/api";
-import { useEffect, useState } from "react";
+import { use } from "react";
 
-export default function CRS() {
-  const [users, setUsers] = useState<any>([]);
+// getStaticProps in NextJS13
+async function getData() {
+  return await (await fetch(API)).json();
+}
 
-  async function getData() {
-    const res = await fetch(API);
-    const data = await res.json();
-    setUsers(data);
-  }
-
-  useEffect(() => {
-    getData();
-  }, [])
+export default function SSG() {
+  const users = use<any>(getData());
 
   return (
     <>
       {users.map((e: any) => (
-        <h2 key={e.id}>{e.name}</h2>
+        <h3 key={e.id}>{e.name}</h3>
       ))}
     </>
   );
