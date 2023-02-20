@@ -5,11 +5,11 @@ import { use } from "react";
 
 async function getData() {
   return await (
-    await fetch(`${API}/${USER_RESOURCE}`, { next: { revalidate: 100 } })
+    await fetch(`${API}/${USER_RESOURCE}`, { next: { revalidate: 30 } })
   ).json();
 }
 
-export default function SSR() {
+export default function ISR() {
   const users = use<any>(getData());
 
   return (

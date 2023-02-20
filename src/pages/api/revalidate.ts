@@ -1,7 +1,8 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // Check for secret to confirm this is a valid request
+  console.log('touch here');
   if (req.query.secret !== process.env.MY_SECRET_TOKEN) {
     return res.status(401).json({ message: 'Invalid token' });
   }

@@ -2,19 +2,20 @@
 import { API, USER_RESOURCE } from "@/config/api";
 import Link from "next/link";
 import { use } from "react";
+import supabase from "@/utils/supabase";
 
 async function getData() {
-  return await (
-    await fetch(`${API}/${USER_RESOURCE}`)
-  ).json();
+  const a =  await supabase.from("posts").select("id");
+  console.log('a123', a);
+  return a;
 }
 
-export default function SSR() {
-  const users = use<any>(getData());
+export default function ISROD() {
+  const posts = use<any>(getData());
 
   return (
     <>
-      {users.map((e: any) => (
+      {posts?.data.map((e: any) => (
         <Link
           key={e.id}
           href={`ssg/${e.name}`.replace(/\s+/g, "-").toLowerCase()}
