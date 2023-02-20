@@ -1,4 +1,4 @@
-// server side rendered
+// incremental static regeneration
 import { API, USER_RESOURCE } from "@/config/api";
 import Link from "next/link";
 import { use } from "react";
