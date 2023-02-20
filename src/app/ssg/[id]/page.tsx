@@ -25,18 +25,18 @@ export async function generateStaticParams() {
   }));
 }
 
-export default function StaticPage({ params }: any) {
-  const post = use(getPostDetail(params.id));
+export default function StaticPage({ params: { id } }: any) {
+  const post = use(getPostDetail(id));
 
   if (!post) {
-    return notFound
+    notFound()
   }
 
   return (
     <>
       <main className={styles.main}>
         <div className={styles.card}>
-          <h3># {params.id}</h3>
+          <h3># {id}</h3>
           <h1>Title: {post.title}</h1>
           <h2>Content: {post.content}</h2>
         </div>
