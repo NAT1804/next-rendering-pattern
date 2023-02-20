@@ -84,11 +84,13 @@ export default function Home() {
             <h2 className={inter.className}>
               ISROD <span>-&gt;</span>
             </h2>
-            <p className={inter.className}>Incremental Static Regeneration On Demand</p>
+            <p className={inter.className}>
+              Incremental Static Regeneration On Demand
+            </p>
           </a>
         </NextLink>
       </div>
-      <div className={styles.grid}>
+      {/* <div className={styles.grid}>
         <NextLink href="/characters/client" passHref legacyBehavior>
           <a className={styles.card} rel="noopener noreferrer">
             <h2 className={inter.className}>
@@ -113,8 +115,9 @@ export default function Home() {
             <p className={inter.className}>Staticprops</p>
           </a>
         </NextLink>
-
-      </div>
+      </div> */}
     </main>
   );
 }
+
+// postgres://postgres:[YOUR-PASSWORD]@db.kkntrmflveovezongorq.supabase.co:6543/postgres

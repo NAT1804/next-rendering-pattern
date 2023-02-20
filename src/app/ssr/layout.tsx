@@ -6,6 +6,7 @@ export default function CSRLayout({ children }: { children: React.ReactNode }) {
   return (
     <section>
       <Button />
+
       {children}
     </section>
   );

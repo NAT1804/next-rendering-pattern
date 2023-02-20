@@ -1,28 +1,32 @@
 // client side rendered
 "use client";
-import { API, USER_RESOURCE } from "@/config/api";
 import Link from "next/link";
-import useSWR from "swr";
-import { Suspense } from "react";
-
-const fetcher = (path: string) =>
-  fetch(`${API}/${path}`).then((res) => res.json());
+import { useEffect, useState } from "react";
+import supabase from "@/utils/supabase";
+import styles from "../page.module.css";
 
 export default function CSR() {
-  const users = useSWR(USER_RESOURCE, fetcher);
+  const [posts, setPosts] = useState<any>([]);
+
+  useEffect(() => {
+    const getPosts = async () => {
+      const { data: posts } = await supabase.from("posts").select("id, title");
+      setPosts(posts);
+    };
+    getPosts();
+  }, []);
 
   return (
     <>
-      <Suspense fallback={<>Loading...</>}>
-        {users?.data?.map((e: any) => (
-          <Link
-            key={e.id}
-            href={`ssg/${e.name}`.replace(/\s+/g, "-").toLowerCase()}
-          >
-            <h3 style={{ padding: "0.5rem" }}>{e.name}</h3>
+      <main className={styles.main}>
+        {posts.map((e: any) => (
+          <Link key={e.id} href={`ssg/${e.id}`} legacyBehavior>
+            <a className={styles.card}>
+              <h3 style={{ padding: "0.5rem" }}>{e.title}</h3>
+            </a>
           </Link>
         ))}
-      </Suspense>
+      </main>
     </>
   );
 }

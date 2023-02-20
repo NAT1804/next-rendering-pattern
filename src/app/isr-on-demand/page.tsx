@@ -1,28 +1,32 @@
-// incremental static regeneration
-import { API, USER_RESOURCE } from "@/config/api";
+// incremental static regeneration on demand
 import Link from "next/link";
 import { use } from "react";
 import supabase from "@/utils/supabase";
+import styles from '../page.module.css'
 
-async function getData() {
-  const a =  await supabase.from("posts").select("id");
-  console.log('a123', a);
-  return a;
+async function getPosts() {
+  return await supabase.from("posts").select("id, title");
 }
 
 export default function ISROD() {
-  const posts = use<any>(getData());
+  const { data: posts } = use<any>(getPosts());
+
+
+  if (!posts?.length) {
+    return <p>No posts found.</p>;
+  }
 
   return (
     <>
-      {posts?.data.map((e: any) => (
-        <Link
-          key={e.id}
-          href={`ssg/${e.name}`.replace(/\s+/g, "-").toLowerCase()}
-        >
-          <h3 style={{ padding: "0.5rem" }}>{e.name}</h3>
-        </Link>
-      ))}
+      <main className={styles.main}>
+        {posts.map((e: any) => (
+          <Link key={e.id} href={`ssg/${e.id}`} legacyBehavior>
+            <a className={styles.card}>
+              <h3 style={{ padding: "0.5rem" }}>{e.title}</h3>
+            </a>
+          </Link>
+        ))}
+      </main>
     </>
   );
 }
