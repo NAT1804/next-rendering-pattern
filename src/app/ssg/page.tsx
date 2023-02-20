@@ -1,10 +1,12 @@
 // Static site generation
-import { API } from "@/config/api";
+import { API, USER_RESOURCE } from "@/config/api";
+import Link from "next/link";
 import { use } from "react";
+import Image from "next/image";
 
 // getStaticProps in NextJS13
 async function getData() {
-  return await (await fetch(API)).json();
+  return await (await fetch(`${API}/${USER_RESOURCE}`)).json();
 }
 
 export default function SSG() {
@@ -13,7 +15,19 @@ export default function SSG() {
   return (
     <>
       {users.map((e: any) => (
-        <h3 key={e.id}>{e.name}</h3>
+        <Link
+          key={e.id}
+          href={`ssg/${e.name}`.replace(/\s+/g, "-").toLowerCase()}
+        >
+          <h3 style={{ padding: "0.5rem" }}>{e.name}</h3>
+          <Image
+            src={e.avatar}
+            loading="lazy"
+            alt="Avatar"
+            width={200}
+            height={200}
+          />
+        </Link>
       ))}
     </>
   );

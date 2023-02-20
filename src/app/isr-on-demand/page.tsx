@@ -1,27 +1,27 @@
-// Incremental static generation on demand
+// server side rendered
+import { API, USER_RESOURCE } from "@/config/api";
+import Link from "next/link";
+import { use } from "react";
 
-import { API } from '@/config/api';
+async function getData() {
+  return await (
+    await fetch(`${API}/${USER_RESOURCE}`)
+  ).json();
+}
 
-export default function ISROD({ data }: any) {
+export default function SSR() {
+  const users = use<any>(getData());
+
   return (
     <>
-      {data.map((e: any) => (
-        <h2 key={e.id}>{e.name}</h2>
+      {users.map((e: any) => (
+        <Link
+          key={e.id}
+          href={`ssg/${e.name}`.replace(/\s+/g, "-").toLowerCase()}
+        >
+          <h3 style={{ padding: "0.5rem" }}>{e.name}</h3>
+        </Link>
       ))}
     </>
   );
-}
-
-// This function gets called at build time on server-side.
-// It may be called again, on a serverless function, if
-// the api endpoint e.g. api/revalidate get's pinged.
-export async function getStaticProps() {
-  const res = await fetch(API);
-  const data = await res.json();
-
-  return {
-    props: {
-      data, // will be passed to the page component as props
-    },
-  };
 }

@@ -1,21 +1,27 @@
 // server side rendered
-import { API } from "@/config/api";
+import { API, USER_RESOURCE } from "@/config/api";
+import Link from "next/link";
 import { use } from "react";
 
 async function getData() {
-  return await (await fetch(API, { cache: "no-store" })).json();
+  return await (
+    await fetch(`${API}/${USER_RESOURCE}`, { cache: "no-store" })
+  ).json();
 }
 
 export default function SSR() {
-
   const users = use<any>(getData());
 
   return (
     <>
       {users.map((e: any) => (
-        <h2 key={e.id}>{e.name}</h2>
+        <Link
+          key={e.id}
+          href={`ssg/${e.name}`.replace(/\s+/g, "-").toLowerCase()}
+        >
+          <h3 style={{ padding: "0.5rem" }}>{e.name}</h3>
+        </Link>
       ))}
     </>
   );
 }
-

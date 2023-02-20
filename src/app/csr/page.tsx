@@ -1,26 +1,28 @@
 // client side rendered
-"use client"
-import { API } from "@/config/api";
-import { useEffect, useState } from "react";
+"use client";
+import { API, USER_RESOURCE } from "@/config/api";
+import Link from "next/link";
+import useSWR from "swr";
+import { Suspense } from "react";
 
-export default function CRS() {
-  const [users, setUsers] = useState<any>([]);
+const fetcher = (path: string) =>
+  fetch(`${API}/${path}`).then((res) => res.json());
 
-  async function getData() {
-    const res = await fetch(API);
-    const data = await res.json();
-    setUsers(data);
-  }
-
-  useEffect(() => {
-    getData();
-  }, [])
+export default function CSR() {
+  const users = useSWR(USER_RESOURCE, fetcher);
 
   return (
     <>
-      {users.map((e: any) => (
-        <h2 key={e.id}>{e.name}</h2>
-      ))}
+      <Suspense fallback={<>Loading...</>}>
+        {users?.data?.map((e: any) => (
+          <Link
+            key={e.id}
+            href={`ssg/${e.name}`.replace(/\s+/g, "-").toLowerCase()}
+          >
+            <h3 style={{ padding: "0.5rem" }}>{e.name}</h3>
+          </Link>
+        ))}
+      </Suspense>
     </>
   );
 }

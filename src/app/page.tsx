@@ -76,17 +76,44 @@ export default function Home() {
             <h2 className={inter.className}>
               ISR <span>-&gt;</span>
             </h2>
-            <p className={inter.className}>Server Side Rendering</p>
+            <p className={inter.className}>Incremental Static Regeneration</p>
           </a>
         </NextLink>
         <NextLink href="/isr-on-demand" passHref legacyBehavior>
           <a className={styles.card} rel="noopener noreferrer">
             <h2 className={inter.className}>
-              ISR on demand <span>-&gt;</span>
+              ISROD <span>-&gt;</span>
             </h2>
-            <p className={inter.className}>Server Side Rendering</p>
+            <p className={inter.className}>Incremental Static Regeneration On Demand</p>
           </a>
         </NextLink>
+      </div>
+      <div className={styles.grid}>
+        <NextLink href="/characters/client" passHref legacyBehavior>
+          <a className={styles.card} rel="noopener noreferrer">
+            <h2 className={inter.className}>
+              Client <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>Client</p>
+          </a>
+        </NextLink>
+        <NextLink href="/characters/server" passHref legacyBehavior>
+          <a className={styles.card} rel="noopener noreferrer">
+            <h2 className={inter.className}>
+              Server <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>Server</p>
+          </a>
+        </NextLink>
+        <NextLink href="/characters/staticprops" passHref legacyBehavior>
+          <a className={styles.card} rel="noopener noreferrer">
+            <h2 className={inter.className}>
+              Staticprops <span>-&gt;</span>
+            </h2>
+            <p className={inter.className}>Staticprops</p>
+          </a>
+        </NextLink>
+
       </div>
     </main>
   );
