@@ -1,9 +1,10 @@
 // client side rendered
 "use client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import supabase from "@/utils/supabase";
 import styles from "../page.module.css";
+import Loading from "./loading";
 
 export default function CSR() {
   const [posts, setPosts] = useState<any>([]);
@@ -19,13 +20,15 @@ export default function CSR() {
   return (
     <>
       <main className={styles.main}>
-        {posts.map((e: any) => (
-          <Link key={e.id} href={`ssg/${e.id}`} legacyBehavior>
-            <a className={styles.card}>
-              <h3 style={{ padding: "0.5rem" }}>{e.title}</h3>
-            </a>
-          </Link>
-        ))}
+        <Suspense fallback={<Loading />}>
+          {posts.map((e: any) => (
+            <Link key={e.id} href={`ssg/${e.id}`} legacyBehavior>
+              <a className={styles.card}>
+                <h3 style={{ padding: "0.5rem" }}>{e.title}</h3>
+              </a>
+            </Link>
+          ))}
+        </Suspense>
       </main>
     </>
   );
