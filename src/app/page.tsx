@@ -45,8 +45,7 @@ export default function Home() {
           <Image src="/thirteen.svg" alt="13" width={40} height={31} priority />
         </div>
       </div> */}
-
-      <div className={styles.grid}>
+      <div className={`${styles.grid} text-2xl mt-12`}>
         <NextLink href="/csr" legacyBehavior>
           <a className={styles.card} rel="noopener noreferrer">
             <h2 className={inter.className}>
@@ -76,7 +75,7 @@ export default function Home() {
             <h2 className={inter.className}>
               ISR <span>-&gt;</span>
             </h2>
-            <p className={inter.className}>Incremental Static Regeneration</p>
+            <p className={inter.className}>Incremental Static Regeneration with specific time</p>
           </a>
         </NextLink>
         <NextLink href="/isr-on-demand" passHref legacyBehavior>

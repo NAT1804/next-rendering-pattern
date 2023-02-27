@@ -19,7 +19,7 @@ export default function SSR() {
         {posts.map((e: any) => (
           <Link key={e.id} href={`ssg/${e.id}`} legacyBehavior>
             <a className={styles.card}>
-              <h3 style={{ padding: "0.5rem" }}>{e.title}</h3>
+              <h3 className="p-2 text-2xl">{e.title}</h3>
             </a>
           </Link>
         ))}
